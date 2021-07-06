@@ -8,26 +8,6 @@ const web3 = createAlchemyWeb3(alchemyKey)
 const contract = require('../artifacts/contracts/MyNFT.sol/MyNFT.json')
 const contractAddress = '0x6584f79c5146031Ffc36b38d6d6C8F3ebAa4CBD5'
 
-export const estimateGas = async (url, name, description) => {
-  const tokenURI = ''
-  window.contract = await new web3.eth.Contract(contract.abi, contractAddress)
-
-  web3.eth
-    .estimateGas({
-      to: contractAddress,
-      data: window.contract.methods
-        .mintNFT(window.ethereum.selectedAddress, tokenURI)
-        .encodeABI(),
-    })
-    .then(console.log)
-
-  return {
-    success: true,
-    status:
-      '✅ Check out your transaction on Etherscan: https://rinkeby.etherscan.io/tx/',
-  }
-}
-
 export const mintNFT = async (url, name, description, recipient) => {
   if (url.trim() == '' || name.trim() == '' || description.trim() == '') {
     return {

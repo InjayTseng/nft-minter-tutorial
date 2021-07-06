@@ -3,8 +3,9 @@ import {
   connectWallet,
   getCurrentWalletConnected,
   mintNFT,
-  estimateGas,
 } from './utils/interact'
+
+import ImageUploader from './utils/ImageUploader'
 
 const Minter = (props) => {
   //State variables
@@ -36,9 +37,9 @@ const Minter = (props) => {
     setStatus(status)
   }
 
-  const onEstimateGas = async () => {
+  const onImageChange = async (e) => {
     //TODO: implement
-    await estimateGas(url, name, description)
+    console.log(e.images)
   }
 
   function addWalletListener() {
@@ -80,12 +81,16 @@ const Minter = (props) => {
       </button>
 
       <br></br>
-      <h1 id="title">🧙‍♂️ Alchemy NFT Minter</h1>
+      <h1 id="title">🧙‍♂️ My NFT Minter</h1>
       <p>
         Simply add your asset's link, name, and description, then press "Mint."
       </p>
+      <h2>🖼 Image </h2>
+      <div className="ImageUploader">
+        <ImageUploader onChange={(event) => onImageChange}></ImageUploader>
+      </div>
       <form>
-        <h2>🖼 Link to asset: </h2>
+        <h2>or Link to asset: </h2>
         <input
           type="text"
           placeholder="e.g. https://gateway.pinata.cloud/ipfs/<hash>"
@@ -112,9 +117,6 @@ const Minter = (props) => {
       </form>
       <button id="mintButton" onClick={onMintPressed}>
         Mint NFT
-      </button>
-      <button id="mintButton" onClick={onEstimateGas}>
-        Estimate Gas
       </button>
       <p id="status">{status}</p>
     </div>
