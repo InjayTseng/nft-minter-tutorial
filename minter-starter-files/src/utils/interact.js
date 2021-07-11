@@ -1,4 +1,4 @@
-import { pinJSONToIPFS } from './pinata.js'
+import { pinJSONToIPFS, pinFileToIPFS } from './pinata.js'
 
 require('dotenv').config()
 const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY
@@ -71,6 +71,7 @@ export const mintNFT = async (url, name, description, recipient) => {
       status:
         '✅ Check out your transaction on Etherscan: https://rinkeby.etherscan.io/tx/' +
         txHash,
+      txHash: txHash,
     }
   } catch (error) {
     return {
@@ -87,7 +88,7 @@ export const connectWallet = async () => {
         method: 'eth_requestAccounts',
       })
       const obj = {
-        status: '👆🏽 Write a message in the text-field above.',
+        status: 'Write a message in the text-field below.',
         address: addressArray[0],
       }
       return obj
@@ -125,7 +126,7 @@ export const getCurrentWalletConnected = async () => {
       if (addressArray.length > 0) {
         return {
           address: addressArray[0],
-          status: '👆🏽 Write a message in the text-field above.',
+          status: 'Write a message in the text-field below.',
         }
       } else {
         return {
@@ -155,5 +156,20 @@ export const getCurrentWalletConnected = async () => {
         </span>
       ),
     }
+  }
+}
+export const uploadImageToIPFS = async (data) => {
+  //make pinata call
+  const pinataResponse = await pinFileToIPFS(data)
+  console.log('Log:' + pinataResponse.pinataUrl)
+  if (!pinataResponse.success) {
+    return {
+      success: false,
+      status: '😢 Something went wrong while uploading your tokenURI.',
+    }
+  }
+  return {
+    success: true,
+    pinataUrl: pinataResponse.pinataUrl,
   }
 }

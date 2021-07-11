@@ -54,4 +54,4 @@ const ImageUploader = () => {
     </div>
   )
 }
-export default App
+export default ImageUploader
