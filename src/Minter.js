@@ -4,6 +4,8 @@ import {
   getCurrentWalletConnected,
   mintNFT,
   uploadImageToIPFS,
+  changeNetwork,
+  checkCurrentNetwork,
 } from './utils/interact'
 
 const FormData = require('form-data')
@@ -11,11 +13,56 @@ const FormData = require('form-data')
 const Minter = (props) => {
   //State variables
   const [walletAddress, setWallet] = useState('')
+  const [network, setNetwork] = useState('')
   const [status, setStatus] = useState('')
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [recipient, setRecipient] = useState('')
   const [url, setURL] = useState('')
+
+  //Detects network change
+  window.ethereum.on('chainChanged', handleChainChanged)
+
+  function handleChainChanged(_chainId) {
+    // We recommend reloading the page, unless you must do otherwise
+    //window.location.reload()
+    //
+    var networkName = ''
+    switch (_chainId) {
+      case '0x1':
+        console.log('This is mainnet')
+        networkName = 'Mainnet'
+        break
+      case '0x3':
+        console.log('This is Ropsten')
+        networkName = 'Ropsten'
+        break
+      case '0x4':
+        console.log('This is Rinkeby')
+        networkName = 'Rinkeby'
+        break
+      case '0x89':
+        console.log('This is Matic Mainnet')
+        networkName = 'Matic'
+        break
+      case '00x13881x89':
+        console.log('This is Mumbai Testnet')
+        networkName = 'Mumbai'
+        break
+      case '0x61':
+        console.log('This is BSC Testnet')
+        networkName = 'BSC Testnet'
+        break
+      case '0x38':
+        console.log('This is BSC Mainnet')
+        networkName = 'BSC'
+        break
+      default:
+        console.log('This is an unknown network.')
+    }
+
+    setNetwork(networkName)
+  }
 
   //Images
   const [
@@ -38,6 +85,11 @@ const Minter = (props) => {
     setStatus(status)
     addWalletListener()
   }, [])
+
+  const networkButtonPressed = async () => {
+    const networkName = await checkCurrentNetwork()
+    setNetwork(networkName)
+  }
 
   const connectWalletPressed = async () => {
     //TODO: implement
@@ -109,6 +161,10 @@ const Minter = (props) => {
 
   return (
     <div className="Minter">
+      <button id="networkButton" onClick={networkButtonPressed}>
+        {network.length > 0 ? network : <span>Network</span>}
+      </button>
+
       <button id="walletButton" onClick={connectWalletPressed}>
         {walletAddress.length > 0 ? (
           'Connected: ' +
