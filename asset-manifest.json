@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/nft-minter-tutorial/static/css/main.59080333.chunk.css",
-    "main.js": "/nft-minter-tutorial/static/js/main.746af670.chunk.js",
-    "main.js.map": "/nft-minter-tutorial/static/js/main.746af670.chunk.js.map",
+    "main.js": "/nft-minter-tutorial/static/js/main.a65c5e33.chunk.js",
+    "main.js.map": "/nft-minter-tutorial/static/js/main.a65c5e33.chunk.js.map",
     "runtime-main.js": "/nft-minter-tutorial/static/js/runtime-main.721c5cba.js",
     "runtime-main.js.map": "/nft-minter-tutorial/static/js/runtime-main.721c5cba.js.map",
-    "static/js/2.046b2584.chunk.js": "/nft-minter-tutorial/static/js/2.046b2584.chunk.js",
-    "static/js/2.046b2584.chunk.js.map": "/nft-minter-tutorial/static/js/2.046b2584.chunk.js.map",
+    "static/js/2.9980c882.chunk.js": "/nft-minter-tutorial/static/js/2.9980c882.chunk.js",
+    "static/js/2.9980c882.chunk.js.map": "/nft-minter-tutorial/static/js/2.9980c882.chunk.js.map",
     "static/js/3.56436aaf.chunk.js": "/nft-minter-tutorial/static/js/3.56436aaf.chunk.js",
     "static/js/3.56436aaf.chunk.js.map": "/nft-minter-tutorial/static/js/3.56436aaf.chunk.js.map",
     "index.html": "/nft-minter-tutorial/index.html",
     "static/css/main.59080333.chunk.css.map": "/nft-minter-tutorial/static/css/main.59080333.chunk.css.map",
-    "static/js/2.046b2584.chunk.js.LICENSE.txt": "/nft-minter-tutorial/static/js/2.046b2584.chunk.js.LICENSE.txt"
+    "static/js/2.9980c882.chunk.js.LICENSE.txt": "/nft-minter-tutorial/static/js/2.9980c882.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.721c5cba.js",
-    "static/js/2.046b2584.chunk.js",
+    "static/js/2.9980c882.chunk.js",
     "static/css/main.59080333.chunk.css",
-    "static/js/main.746af670.chunk.js"
+    "static/js/main.a65c5e33.chunk.js"
   ]
 }
