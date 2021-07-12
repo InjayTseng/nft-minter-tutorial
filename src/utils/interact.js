@@ -66,7 +66,8 @@ export const changeNetwork = async () => {
           method: 'wallet_switchEthereumChain',
           params: [
             {
-              chainId: '0x38',
+              //To Rinkeby
+              chainId: '0x4',
             },
           ],
         })

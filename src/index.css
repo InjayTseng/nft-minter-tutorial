@@ -68,12 +68,22 @@ button {
   padding: 32px 60px;
 }
 
+#networkButton {
+  text-align: right;
+  float:right;
+  margin-bottom: 10px;
+  line-height: 10px;
+  
+}
+
 #walletButton {
   text-align: right;
   float:right;
-  margin-bottom: 50px;
-  line-height: 16px;
+  margin-bottom: 10px;
+  line-height: 10px;
 }
+
+
 
 #mintButton {
   margin-top: 40px;

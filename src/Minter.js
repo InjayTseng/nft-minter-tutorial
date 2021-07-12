@@ -22,7 +22,6 @@ const Minter = (props) => {
 
   //Detects network change
   window.ethereum.on('chainChanged', handleChainChanged)
-
   function handleChainChanged(_chainId) {
     // We recommend reloading the page, unless you must do otherwise
     //window.location.reload()
@@ -81,6 +80,7 @@ const Minter = (props) => {
   useEffect(async () => {
     //TODO: implement
     const { address, status } = await getCurrentWalletConnected()
+    await networkButtonPressed()
     setWallet(address)
     setStatus(status)
     addWalletListener()
@@ -94,6 +94,7 @@ const Minter = (props) => {
   const connectWalletPressed = async () => {
     //TODO: implement
     const walletResponse = await connectWallet()
+
     setStatus(walletResponse.status)
     setWallet(walletResponse.address)
   }
@@ -161,10 +162,6 @@ const Minter = (props) => {
 
   return (
     <div className="Minter">
-      <button id="networkButton" onClick={networkButtonPressed}>
-        {network.length > 0 ? network : <span>Network</span>}
-      </button>
-
       <button id="walletButton" onClick={connectWalletPressed}>
         {walletAddress.length > 0 ? (
           'Connected: ' +
@@ -175,9 +172,17 @@ const Minter = (props) => {
           <span>Connect Wallet</span>
         )}
       </button>
+      <button id="networkButton" onClick={networkButtonPressed}>
+        {network.length > 0 ? network : <span>Network</span>}
+      </button>
+
       <br></br>
       <p id="status">{status}</p>
       <p>Simply upload the image, then press "Mint."</p>
+      <button id="switchNetworkButton" onClick={changeNetwork}>
+        <span>Switch Network to Rinkeby</span>
+      </button>
+
       <h2>Step.1 Upload your Image to IPFS.</h2>
       <p>Select an Image and upload. </p>
       <input type="file" name="file" onChange={changeHandlerForUploadImage} />
