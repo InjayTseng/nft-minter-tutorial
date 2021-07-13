@@ -6,6 +6,7 @@ import {
   uploadImageToIPFS,
   changeNetwork,
   checkCurrentNetwork,
+  changeNetworkIDtoName,
 } from './utils/interact'
 
 const FormData = require('form-data')
@@ -21,46 +22,15 @@ const Minter = (props) => {
   const [url, setURL] = useState('')
 
   //Detects network change
-  window.ethereum.on('chainChanged', handleChainChanged)
   function handleChainChanged(_chainId) {
     // We recommend reloading the page, unless you must do otherwise
     //window.location.reload()
-    //
-    var networkName = ''
-    switch (_chainId) {
-      case '0x1':
-        console.log('This is mainnet')
-        networkName = 'Mainnet'
-        break
-      case '0x3':
-        console.log('This is Ropsten')
-        networkName = 'Ropsten'
-        break
-      case '0x4':
-        console.log('This is Rinkeby')
-        networkName = 'Rinkeby'
-        break
-      case '0x89':
-        console.log('This is Matic Mainnet')
-        networkName = 'Matic'
-        break
-      case '00x13881x89':
-        console.log('This is Mumbai Testnet')
-        networkName = 'Mumbai'
-        break
-      case '0x61':
-        console.log('This is BSC Testnet')
-        networkName = 'BSC Testnet'
-        break
-      case '0x38':
-        console.log('This is BSC Mainnet')
-        networkName = 'BSC'
-        break
-      default:
-        console.log('This is an unknown network.')
-    }
-
-    setNetwork(networkName)
+    changeNetworkIDtoName(_chainId).then((result) => {
+      {
+        //console.log('set' + result)
+        setNetwork(result)
+      }
+    })
   }
 
   //Images
@@ -84,6 +54,7 @@ const Minter = (props) => {
     setWallet(address)
     setStatus(status)
     addWalletListener()
+    window.ethereum.on('chainChanged', handleChainChanged)
   }, [])
 
   const networkButtonPressed = async () => {
@@ -102,6 +73,11 @@ const Minter = (props) => {
   const onMintPressed = async () => {
     const { status } = await mintNFT(url, name, description, recipient)
     setStatus(status)
+  }
+
+  const onSwitchNewtorkClicked = async (e) => {
+    console.log(e.target.value)
+    changeNetwork(e.target.value)
   }
 
   function addWalletListener() {
@@ -144,20 +120,6 @@ const Minter = (props) => {
       const assetUrl = response.pinataUrl
       setURL(assetUrl)
     }
-
-    // fetch(api, {
-    //   method: 'POST',
-    //   body: formData,
-    // })
-    //   .then((response) => response.json())
-    //   .then((result) => {
-    //     console.log(`${api} success`, result)
-    //     setTestApiResponse(JSON.stringify(result))
-    //   })
-    //   .catch((error) => {
-    //     console.log(`${api} error: `, error)
-    //     setTestApiResponse(JSON.stringify(error))
-    //   })
   }
 
   return (
@@ -178,11 +140,25 @@ const Minter = (props) => {
 
       <br></br>
       <p id="status">{status}</p>
-      <p>Simply upload the image, then press "Mint."</p>
+      {/* <p>Simply upload the image, then press "Mint."</p>
       <button id="switchNetworkButton" onClick={changeNetwork}>
         <span>Switch Network to Rinkeby</span>
-      </button>
+      </button> */}
+      <span>Please switch Network to Rinkeby</span>
 
+      <form onSubmit={() => {}}>
+        <label>
+          Choose your network:
+          <select onChange={onSwitchNewtorkClicked}>
+            <option value="0x1">Ethereum Mainnet</option>
+            <option value="0x4">Rinkeby Network</option>
+            <option value="0x38">BSC Mainnet</option>
+            <option value="0x61">BSC Testnet</option>
+            <option value="0x89">Polygon</option>
+            <option value="0x13881">Mumbai Network</option>
+          </select>
+        </label>
+      </form>
       <h2>Step.1 Upload your Image to IPFS.</h2>
       <p>Select an Image and upload. </p>
       <input type="file" name="file" onChange={changeHandlerForUploadImage} />
@@ -227,14 +203,13 @@ const Minter = (props) => {
         <a target="_blank" rel="noopener noreferrer" href={url}>
           Check your image
         </a>
-        <p>Or link to another image URL:</p>
+        <p>Or check the link below:</p>
         <input
           type="text"
           placeholder="e.g. https://gateway.pinata.cloud/ipfs/<hash>"
           value={url}
           onChange={(event) => setURL(event.target.value)}
         />
-
         <h2>Step.4 Set recipient</h2>
         <p>Gives NFT to:</p>
         <input

@@ -1,4 +1,4 @@
-import './App.css';
+import './App.css'
 import Minter from './Minter'
 
 function App() {
@@ -6,7 +6,7 @@ function App() {
     <div className="App">
       <Minter></Minter>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

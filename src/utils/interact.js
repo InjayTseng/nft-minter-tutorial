@@ -8,13 +8,41 @@ const web3 = createAlchemyWeb3(alchemyKey)
 const contract = require('../artifacts/contracts/MyNFT.sol/MyNFT.json')
 const contractAddress = '0x6584f79c5146031Ffc36b38d6d6C8F3ebAa4CBD5'
 
+export const changeNetworkIDtoName = async (chainId) => {
+  console.log('changeNetworkIDtoName')
+  switch (chainId) {
+    case '0x1':
+      console.log('This is mainnet')
+      return 'Mainnet'
+    case '0x3':
+      console.log('This is Ropsten')
+      return 'Ropsten'
+    case '0x4':
+      console.log('This is Rinkeby')
+      return 'Rinkeby'
+    case '0x89':
+      console.log('This is Matic Mainnet')
+      return 'Matic'
+    case '00x13881':
+      console.log('This is Mumbai Testnet')
+      return 'Mumbai'
+    case '0x61':
+      console.log('This is BSC Testnet')
+      return 'BSC Testnet'
+    case '0x38':
+      console.log('This is BSC Mainnet')
+      return 'BSC'
+    default:
+      console.log('This is an unknown network.')
+  }
+}
 export const checkCurrentNetwork = async () => {
   if (typeof web3 !== 'undefined') {
     //console.log(window.ethereum.currentProvider)
-    // Use Mist/MetaMask's provider
+    //Use Mist/MetaMask's provider
     //var web3js = new Web3(web3.currentProvider)
-    const chainId = await window.ethereum.request({ method: 'eth_chainId' })
 
+    const chainId = await window.ethereum.request({ method: 'eth_chainId' })
     console.log(chainId)
     switch (chainId) {
       case '0x1':
@@ -51,25 +79,87 @@ export const checkCurrentNetwork = async () => {
   }
 }
 
-export const changeNetwork = async () => {
+export const changeNetwork = async (networkID) => {
   try {
-    console.log('Try Swtich Network')
+    //Try Swtich Network, if chainId is exisit in Metamask, no need to add network.
     await window.ethereum.request({
       method: 'wallet_switchEthereumChain',
-      params: [{ chainId: '0xf00' }],
+      params: [{ chainId: networkID }],
     })
   } catch (switchError) {
     // This error code indicates that the chain has not been added to MetaMask.
+    // Need add the configurables below.
     if (switchError.code === 4902) {
+      console.log('Found out need add new network')
       try {
+        var networkConfigurable
+        switch (networkID) {
+          case '0x89':
+            networkConfigurable = [
+              {
+                chainId: '0x89',
+                chainName: 'Matic Mainnet',
+                rpcUrls: ['https://rpc-mainnet.maticvigil.com/'],
+                nativeCurrency: {
+                  name: 'MATIC',
+                  symbol: 'MATIC',
+                  decimals: 18,
+                },
+                blockExplorerUrls: 'https://polygonscan.com/',
+              },
+            ]
+            break
+          case '00x13881x89':
+            networkConfigurable = [
+              {
+                chainId: '00x13881x89',
+                chainName: 'Mumbai Testnet',
+                rpcUrls: ['https://rpc-mumbai.maticvigil.com/'],
+                nativeCurrency: {
+                  name: 'MATIC',
+                  symbol: 'MATIC',
+                  decimals: 18,
+                },
+                blockExplorerUrls: 'https://mumbai.polygonscan.com/',
+              },
+            ]
+            break
+          case '0x61':
+            networkConfigurable = [
+              {
+                chainId: '0x61',
+                chainName: 'BSC Testnet',
+                rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545/'],
+                nativeCurrency: {
+                  name: 'Binance Coin',
+                  symbol: 'BNB',
+                  decimals: 18,
+                },
+                blockExplorerUrls: ['https://testnet.bscscan.com'],
+              },
+            ]
+            break
+          case '0x38':
+            networkConfigurable = [
+              {
+                chainId: '0x38',
+                chainName: 'Smart Chain',
+                rpcUrls: ['https://bsc-dataseed.binance.org'],
+                nativeCurrency: {
+                  name: 'Binance Coin',
+                  symbol: 'BNB',
+                  decimals: 18,
+                },
+                blockExplorerUrls: ['https://bscscan.com'],
+              },
+            ]
+            break
+          default:
+            console.log('This is an unknown network.')
+        }
         await window.ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: [
-            {
-              //To Rinkeby
-              chainId: '0x4',
-            },
-          ],
+          method: 'wallet_addEthereumChain',
+          params: networkConfigurable,
         })
       } catch (addError) {
         // handle "add" error
