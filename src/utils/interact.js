@@ -23,7 +23,7 @@ export const changeNetworkIDtoName = async (chainId) => {
     case '0x89':
       console.log('This is Matic Mainnet')
       return 'Matic'
-    case '00x13881':
+    case '0x13881':
       console.log('This is Mumbai Testnet')
       return 'Mumbai'
     case '0x61':
@@ -61,7 +61,7 @@ export const checkCurrentNetwork = async () => {
         console.log('This is Matic Mainnet')
         return 'Matic'
         break
-      case '00x13881x89':
+      case '0x13881':
         console.log('This is Mumbai Testnet')
         return 'Mumbai'
         break
@@ -105,14 +105,14 @@ export const changeNetwork = async (networkID) => {
                   symbol: 'MATIC',
                   decimals: 18,
                 },
-                blockExplorerUrls: 'https://polygonscan.com/',
+                blockExplorerUrls: ['https://polygonscan.com/'],
               },
             ]
             break
-          case '00x13881x89':
+          case '00x13881':
             networkConfigurable = [
               {
-                chainId: '00x13881x89',
+                chainId: '0x13881',
                 chainName: 'Mumbai Testnet',
                 rpcUrls: ['https://rpc-mumbai.maticvigil.com/'],
                 nativeCurrency: {
@@ -120,7 +120,7 @@ export const changeNetwork = async (networkID) => {
                   symbol: 'MATIC',
                   decimals: 18,
                 },
-                blockExplorerUrls: 'https://mumbai.polygonscan.com/',
+                blockExplorerUrls: ['https://mumbai.polygonscan.com/'],
               },
             ]
             break
