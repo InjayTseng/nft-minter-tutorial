@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/nft-minter-tutorial/static/css/main.4873df15.chunk.css",
-    "main.js": "/nft-minter-tutorial/static/js/main.f01ec45e.chunk.js",
-    "main.js.map": "/nft-minter-tutorial/static/js/main.f01ec45e.chunk.js.map",
+    "main.js": "/nft-minter-tutorial/static/js/main.7f3a8d47.chunk.js",
+    "main.js.map": "/nft-minter-tutorial/static/js/main.7f3a8d47.chunk.js.map",
     "runtime-main.js": "/nft-minter-tutorial/static/js/runtime-main.24766e48.js",
     "runtime-main.js.map": "/nft-minter-tutorial/static/js/runtime-main.24766e48.js.map",
     "static/css/2.d45d6843.chunk.css": "/nft-minter-tutorial/static/css/2.d45d6843.chunk.css",
@@ -20,6 +20,6 @@
     "static/css/2.d45d6843.chunk.css",
     "static/js/2.634f0c4f.chunk.js",
     "static/css/main.4873df15.chunk.css",
-    "static/js/main.f01ec45e.chunk.js"
+    "static/js/main.7f3a8d47.chunk.js"
   ]
 }
