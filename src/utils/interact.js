@@ -1,10 +1,8 @@
 import { pinJSONToIPFS, pinFileToIPFS } from './pinata.js'
-
 require('dotenv').config()
 const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY
 const { createAlchemyWeb3 } = require('@alch/alchemy-web3')
 const web3 = createAlchemyWeb3(alchemyKey)
-
 const contract = require('../artifacts/contracts/MyNFT.sol/MyNFT.json')
 const contractAddress = '0x6584f79c5146031Ffc36b38d6d6C8F3ebAa4CBD5'
 
@@ -194,6 +192,7 @@ export const mintNFT = async (url, name, description, recipient) => {
 
   const tokenURI = pinataResponse.pinataUrl
 
+  console.log('Token URI:', tokenURI)
   window.contract = await new web3.eth.Contract(contract.abi, contractAddress)
   //set up your Ethereum transaction
 

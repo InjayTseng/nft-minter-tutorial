@@ -14,12 +14,11 @@ code {
 }
 
 .Minter {
-  max-width: 80vh;
-  max-height: 80vh;
-  padding: 60px 100px;
+  max-width: 150vh;
+  max-height: 150vh;
+  padding: 50px 100px;
   margin: 0 auto;
   text-align: left;
-
 }
 
 input {
@@ -38,20 +37,6 @@ input:focus {
   border-color: rgba(4, 4, 5, 0.4);
 }
 
-button {
-  padding: 9px 16px;
-  max-height: 40px;
-  border-color: #282828;
-  color: #282828;
-  background-color: white;
-  border-radius: 8px;
-  align-items: center;
-  font-size: 16px;
-  font-weight: 500;
-  text-align: center;
-  font-weight: bold;
-  cursor:pointer;
-}
 
 #title {
   padding-top: 32px;
@@ -69,24 +54,11 @@ button {
 }
 
 #networkButton {
-  text-align: right;
-  float:right;
-  margin-bottom: 10px;
-  line-height: 10px;
-  
+  text-align: center;
+
 }
 
 #walletButton {
-  text-align: right;
-  float:right;
+  text-align: center;
   margin-bottom: 10px;
-  line-height: 10px;
-}
-
-
-
-#mintButton {
-  margin-top: 40px;
-  background-color: #636363;
-  color:white;
 }
